@@ -1,14 +1,17 @@
 package org.quick.viewHolder
 
+import android.content.Context
 import android.content.res.Resources
 import android.graphics.*
 import android.graphics.drawable.Drawable
-import android.os.Build
+import androidx.core.content.ContextCompat
+import kotlin.math.abs
+import kotlin.math.roundToInt
 
 object Utils {
 
-    fun decodeSampledBitmapFromResource(res: Resources, resId: Int): Bitmap {
-        return decodeSampledBitmapFromResource(res, resId, 0, 0)
+    fun decodeSampledBitmapFromResource(context: Context, res: Resources, resId: Int): Bitmap {
+        return decodeSampledBitmapFromResource(context, res, resId, 0, 0)
     }
 
     /**
@@ -22,16 +25,21 @@ object Utils {
      * @source http://www.android-doc.com/training/displaying-bitmaps/load-bitmap
      * .html#read-bitmap
      */
-    fun decodeSampledBitmapFromResource(res: Resources, resId: Int, reqWidth: Int, reqHeight: Int): Bitmap {
+    fun decodeSampledBitmapFromResource(
+        context: Context,
+        res: Resources,
+        resId: Int,
+        reqWidth: Int,
+        reqHeight: Int
+    ): Bitmap {
 
-        if (reqWidth == 0 || reqHeight == 0) {
-            return BitmapFactory.decodeResource(res, resId)
-                ?: drawableToBitmap(
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
-                        res.getDrawable(resId, null)
-                    else res.getDrawable(resId)
-                )
-        }
+        if (reqWidth == 0 || reqHeight == 0)
+            return BitmapFactory.decodeResource(res, resId) ?: drawableToBitmap(
+                ContextCompat.getDrawable(
+                    context,
+                    resId
+                )!!
+            )
 
         // First decode with inJustDecodeBounds=true to check dimensions
         val options = BitmapFactory.Options()
@@ -63,7 +71,8 @@ object Utils {
 
         if (height > reqHeight || width > reqWidth) {
             // 取高宽中更大一边，进行同比例缩放，这样才不会变形。
-            inSampleSize = if (width > height) Math.round(height.toFloat() / reqHeight.toFloat()) else Math.round(width.toFloat() / reqWidth.toFloat())
+            inSampleSize =
+                if (width > height) (height.toFloat() / reqHeight.toFloat()).roundToInt() else (width.toFloat() / reqWidth.toFloat()).roundToInt()
         }
         return inSampleSize
     }
@@ -122,14 +131,14 @@ object Utils {
             height = width
         } else {
             radii = height / 2.0F
-            left = Math.abs(Math.round((height - width) / 2.0F))
+            left = abs(((height - width) / 2.0F).roundToInt())
             top = 0
-            right = width - Math.abs(Math.round((height - width) / 2.0F))
+            right = width - abs(((height - width) / 2.0F).roundToInt())
             bottom = height
 
-            leftDst = Math.abs(Math.round((height - width) / 2.0F))
+            leftDst = abs(((height - width) / 2.0F).roundToInt())
             topDst = 0
-            rightDst = width - Math.abs(Math.round((height - width) / 2.0F))
+            rightDst = width - abs(((height - width) / 2.0F).roundToInt())
             bottomDst = height
             width = height
         }
@@ -156,8 +165,8 @@ object Utils {
      * @param radius 圆角
      */
     fun cropRoundRect(bitmap: Bitmap, radius: Float): Bitmap {
-        var width = bitmap.width
-        var height = bitmap.height
+        val width = bitmap.width
+        val height = bitmap.height
         val bitmapCorp: Bitmap
 
         val paint = Paint()

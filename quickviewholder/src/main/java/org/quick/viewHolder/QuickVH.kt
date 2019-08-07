@@ -14,10 +14,12 @@ import androidx.annotation.NonNull
 
 /**
  * 视图持有器
+ * @from https://github.com/SpringSmell/QuickViewHolder
  */
 open class QuickVH(var itemView:View):QuickVHService {
     private val mViews: SparseArray<View> by lazy { return@lazy SparseArray<View>() }
 
+   @Suppress("UNCHECKED_CAST")
    override fun <T : View> getView(@IdRes id: Int): T? {
 
         var view: View? = mViews.get(id)
@@ -124,8 +126,8 @@ open class QuickVH(var itemView:View):QuickVHService {
         val img = getView<ImageView>(id)
         if (TextUtils.isEmpty(url)) {
             when {
-                isCir -> img?.setImageBitmap(Utils.cropCircle(Utils.decodeSampledBitmapFromResource(itemView.context.resources, imgRes, img.measuredWidth, img.measuredHeight)))
-                radius > 0 -> img?.setImageBitmap(Utils.cropRoundRect(Utils.decodeSampledBitmapFromResource(itemView.context.resources, imgRes, img.measuredWidth, img.measuredHeight), radius))
+                isCir -> img?.setImageBitmap(Utils.cropCircle(Utils.decodeSampledBitmapFromResource(itemView.context,itemView.context.resources, imgRes, img.measuredWidth, img.measuredHeight)))
+                radius > 0 -> img?.setImageBitmap(Utils.cropRoundRect(Utils.decodeSampledBitmapFromResource(itemView.context,itemView.context.resources, imgRes, img.measuredWidth, img.measuredHeight), radius))
                 else -> img?.setImageResource(imgRes)
             }
         } else {
