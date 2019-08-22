@@ -16,7 +16,7 @@ import androidx.annotation.NonNull
  * 视图持有器
  * @from https://github.com/SpringSmell/QuickViewHolder
  */
-open class QuickVH(var itemView:View):QuickVHService {
+open class ViewHolder(var itemView:View):VHService {
     private val mViews: SparseArray<View> by lazy { return@lazy SparseArray<View>() }
 
    @Suppress("UNCHECKED_CAST")
@@ -30,13 +30,13 @@ open class QuickVH(var itemView:View):QuickVHService {
         return view as T?
     }
 
-    override fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)? ): QuickVHService {
+    override fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
         val textView = getView<TextView>(id)
         textView?.text = content
         if (onClickListener != null) {
             textView?.setOnClickListener (object : OnClickListener2() {
                 override fun onClick2(view: View) {
-                    onClickListener.invoke(view, this@QuickVH)
+                    onClickListener.invoke(view, this@ViewHolder)
                 }
             })
         }
@@ -50,7 +50,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @param iconId
      * @return
      */
-    override fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)? ): QuickVHService {
+    override fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
         return setImg(id, false, 0f, "", iconId, onClickListener)
     }
 
@@ -61,7 +61,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @param url
      * @return
      */
-    override fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)?): QuickVHService {
+    override fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
         return setImg(id, false, 0f, url, 0, onClickListener)
     }
 
@@ -74,7 +74,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @param iconId
      * @return
      */
-    override fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)?): QuickVHService {
+    override fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
         return setImg(id, false, radius, "", iconId, onClickListener)
     }
 
@@ -86,7 +86,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @param url
      * @return
      */
-    override fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)?): QuickVHService {
+    override fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
         return setImg(id, false, radius, url, 0, onClickListener)
     }
 
@@ -99,7 +99,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @param onClickListener
      * @return
      */
-    override fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)? ): QuickVHService {
+    override fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
         return setImg(id, true, 0f, url, 0, onClickListener)
     }
 
@@ -107,7 +107,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * 圆形-本地图片
      *
      */
-    override  fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)?): QuickVHService {
+    override  fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
         return setImg(id, true, 0f, "", imgRes, onClickListener)
     }
 
@@ -121,7 +121,7 @@ open class QuickVH(var itemView:View):QuickVHService {
      * @return
      */
     @Synchronized
-    private fun setImg(id: Int, isCir: Boolean, radius: Float, url: CharSequence, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: QuickVHService) -> Unit)?): QuickVHService {
+    private fun setImg(id: Int, isCir: Boolean, radius: Float, url: CharSequence, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
 
         val img = getView<ImageView>(id)
         if (TextUtils.isEmpty(url)) {
@@ -139,65 +139,65 @@ open class QuickVH(var itemView:View):QuickVHService {
         }
         if (onClickListener != null) img?.setOnClickListener (object : OnClickListener2() {
             override fun onClick2(view: View) {
-                onClickListener.invoke(view, this@QuickVH)
+                onClickListener.invoke(view, this@ViewHolder)
             }
         })
         return this
     }
 
-    override fun bindImgCircle(context: Context, url: String, imageView: ImageView?): QuickVHService {
+    override fun bindImgCircle(context: Context, url: String, imageView: ImageView?): VHService {
         return this
     }
 
-    override fun bindImg(context: Context, url: String, imageView: ImageView?): QuickVHService {
+    override fun bindImg(context: Context, url: String, imageView: ImageView?): VHService {
         return this
     }
 
-    override fun bindImgRoundRect(context: Context, url: String, radius: Float, imageView: ImageView?): QuickVHService {
+    override fun bindImgRoundRect(context: Context, url: String, radius: Float, imageView: ImageView?): VHService {
         return this
     }
 
-    override fun setOnClickListener(onClickListener: (view: View, VHService: QuickVHService) -> Unit, @IdRes vararg ids: Int): QuickVHService {
+    override fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes vararg ids: Int): VHService {
         for (id in ids) setOnClickListener(onClickListener, id)
         return this
     }
 
-    override fun setOnClickListener(onClickListener: (view: View, VHService: QuickVHService) -> Unit, @IdRes id: Int): QuickVHService {
+    override fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes id: Int): VHService {
         getView<View>(id)?.setOnClickListener(object : OnClickListener2() {
             override fun onClick2(view: View) {
-                onClickListener.invoke(view, this@QuickVH)
+                onClickListener.invoke(view, this@ViewHolder)
             }
         })
         return this
     }
 
-    override fun setProgress(@IdRes id: Int, value: Int): QuickVHService {
+    override fun setProgress(@IdRes id: Int, value: Int): VHService {
         getView<ProgressBar>(id)?.progress = value
         return this
     }
 
-    override fun setCheck(@IdRes id: Int, isChecked: Boolean): QuickVHService {
+    override fun setCheck(@IdRes id: Int, isChecked: Boolean): VHService {
         getView<CompoundButton>(id)?.isChecked = isChecked
         return this
     }
 
-    override fun setBackgroundResource(@IdRes id: Int, bgResId: Int): QuickVHService {
+    override fun setBackgroundResource(@IdRes id: Int, bgResId: Int): VHService {
         getView<View>(id)?.setBackgroundResource(bgResId)
         return this
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-    override  fun setBackground(@IdRes id: Int, background: Drawable): QuickVHService {
+    override  fun setBackground(@IdRes id: Int, background: Drawable): VHService {
         getView<View>(id)?.background = background
         return this
     }
 
-    override fun setBackgroundColor(@IdRes id: Int, background: Int): QuickVHService {
+    override fun setBackgroundColor(@IdRes id: Int, background: Int): VHService {
         getView<View>(id)?.setBackgroundColor(background)
         return this
     }
 
-    override fun setVisibility(visibility: Int, @NonNull @IdRes vararg resIds: Int): QuickVHService {
+    override fun setVisibility(visibility: Int, @NonNull @IdRes vararg resIds: Int): VHService {
         for (resId in resIds) getView<View>(resId)?.visibility = visibility
         return this
     }
