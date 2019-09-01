@@ -13,7 +13,7 @@ import androidx.annotation.NonNull
 interface VHService {
     fun <T : View> getView(@IdRes id: Int): T? 
 
-    fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
     /**
      * 原样本地图片
@@ -22,7 +22,7 @@ interface VHService {
      * @param iconId
      * @return
      */
-    fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
     /**
      * 原样网络图片
@@ -31,7 +31,7 @@ interface VHService {
      * @param url
      * @return
      */
-    fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
 
     /**
@@ -42,7 +42,7 @@ interface VHService {
      * @param iconId
      * @return
      */
-    fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
     /**
      * 圆角-网络图片
@@ -52,7 +52,7 @@ interface VHService {
      * @param url
      * @return
      */
-    fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
 
     /**
@@ -63,13 +63,13 @@ interface VHService {
      * @param onClickListener
      * @return
      */
-    fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
     /**
      * 圆形-本地图片
      *
      */
-    fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)? = null): VHService
+    fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? = null): VHService
 
 
     fun bindImgCircle(context: Context, url: String, imageView: ImageView?): VHService
@@ -78,9 +78,7 @@ interface VHService {
 
     fun bindImgRoundRect(context: Context, url: String, radius: Float, imageView: ImageView?): VHService
 
-    fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes vararg ids: Int): VHService
-
-    fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes id: Int): VHService
+    fun setOnClick(onClickListener: (view: View, vh: ViewHolder) -> Unit, @IdRes vararg ids: Int): VHService
 
     fun setProgress(@IdRes id: Int, value: Int): VHService
 

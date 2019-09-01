@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import org.quick.viewHolder.VHService
 import org.quick.viewHolder.ViewHolder
 
 class MainActivity : AppCompatActivity() {
@@ -20,30 +21,28 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    class VHService(view:View, var quickViewHolder:BaseVH=BaseVH(view)): org.quick.viewHolder.VHService {
-        override fun <T : View> getView(id: Int): T? =quickViewHolder.getView<T>(id)
-
+    class BaseViewHolder(view:View, var quickViewHolder:BaseVH=BaseVH(view)): VHService {
         override fun setText(
             id: Int,
             content: CharSequence?,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun setImg(
             id: Int,
             iconId: Int,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun setImg(
             id: Int,
             url: CharSequence,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
@@ -51,8 +50,8 @@ class MainActivity : AppCompatActivity() {
             id: Int,
             radius: Float,
             iconId: Int,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
@@ -60,32 +59,36 @@ class MainActivity : AppCompatActivity() {
             id: Int,
             radius: Float,
             url: CharSequence,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun setImgCircle(
             id: Int,
             url: CharSequence,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
         override fun setImgCircle(
             id: Int,
             imgRes: Int,
-            onClickListener: ((view: View, VHService: org.quick.viewHolder.VHService) -> Unit)?
-        ): org.quick.viewHolder.VHService {
+            onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun bindImgCircle(context: Context, url: String, imageView: ImageView?): org.quick.viewHolder.VHService {
+        override fun bindImgCircle(
+            context: Context,
+            url: String,
+            imageView: ImageView?
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun bindImg(context: Context, url: String, imageView: ImageView?): org.quick.viewHolder.VHService {
+        override fun bindImg(context: Context, url: String, imageView: ImageView?): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
@@ -94,45 +97,38 @@ class MainActivity : AppCompatActivity() {
             url: String,
             radius: Float,
             imageView: ImageView?
-        ): org.quick.viewHolder.VHService {
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setOnClickListener(
-            onClickListener: (view: View, VHService: org.quick.viewHolder.VHService) -> Unit,
+        override fun setOnClick(
+            onClickListener: (view: View, vh: ViewHolder) -> Unit,
             vararg ids: Int
-        ): org.quick.viewHolder.VHService {
+        ): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setOnClickListener(
-            onClickListener: (view: View, VHService: org.quick.viewHolder.VHService) -> Unit,
-            id: Int
-        ): org.quick.viewHolder.VHService {
+        override fun setProgress(id: Int, value: Int): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setProgress(id: Int, value: Int): org.quick.viewHolder.VHService {
+        override fun setCheck(id: Int, isChecked: Boolean): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setCheck(id: Int, isChecked: Boolean): org.quick.viewHolder.VHService {
+        override fun setBackgroundResource(id: Int, bgResId: Int): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setBackgroundResource(id: Int, bgResId: Int): org.quick.viewHolder.VHService {
+        override fun setBackground(id: Int, background: Drawable): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setBackground(id: Int, background: Drawable): org.quick.viewHolder.VHService {
+        override fun setBackgroundColor(id: Int, background: Int): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun setBackgroundColor(id: Int, background: Int): org.quick.viewHolder.VHService {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-        }
-
-        override fun setVisibility(visibility: Int, vararg resIds: Int): org.quick.viewHolder.VHService {
+        override fun setVisibility(visibility: Int, vararg resIds: Int): VHService {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
@@ -167,6 +163,9 @@ class MainActivity : AppCompatActivity() {
         override fun getEditText(id: Int): EditText? {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+
+        override fun <T : View> getView(id: Int): T? =quickViewHolder.getView<T>(id)
+
 
     }
 }

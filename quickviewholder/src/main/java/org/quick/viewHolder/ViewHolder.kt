@@ -11,6 +11,7 @@ import android.widget.*
 import androidx.annotation.DrawableRes
 import androidx.annotation.IdRes
 import androidx.annotation.NonNull
+import org.quick.viewHolder.callback.OnClickListener2
 
 /**
  * 视图持有器
@@ -30,12 +31,12 @@ open class ViewHolder(var itemView:View):VHService {
         return view as T?
     }
 
-    override fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
+    override fun setText(@IdRes id: Int, content: CharSequence?, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? ): VHService {
         val textView = getView<TextView>(id)
         textView?.text = content
         if (onClickListener != null) {
             textView?.setOnClickListener (object : OnClickListener2() {
-                override fun onClick2(view: View) {
+                override fun click(view: View) {
                     onClickListener.invoke(view, this@ViewHolder)
                 }
             })
@@ -50,7 +51,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @param iconId
      * @return
      */
-    override fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
+    override fun setImg(@IdRes id: Int, @DrawableRes iconId: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? ): VHService {
         return setImg(id, false, 0f, "", iconId, onClickListener)
     }
 
@@ -61,7 +62,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @param url
      * @return
      */
-    override fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
+    override fun setImg(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)?): VHService {
         return setImg(id, false, 0f, url, 0, onClickListener)
     }
 
@@ -74,7 +75,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @param iconId
      * @return
      */
-    override fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
+    override fun setImgRoundRect(@IdRes id: Int, radius: Float, @DrawableRes iconId: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)?): VHService {
         return setImg(id, false, radius, "", iconId, onClickListener)
     }
 
@@ -86,7 +87,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @param url
      * @return
      */
-    override fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
+    override fun setImgRoundRect(@IdRes id: Int, radius: Float, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)?): VHService {
         return setImg(id, false, radius, url, 0, onClickListener)
     }
 
@@ -99,7 +100,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @param onClickListener
      * @return
      */
-    override fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, VHService: VHService) -> Unit)? ): VHService {
+    override fun setImgCircle(@IdRes id: Int, url: CharSequence, onClickListener: ((view: View, vh: ViewHolder) -> Unit)? ): VHService {
         return setImg(id, true, 0f, url, 0, onClickListener)
     }
 
@@ -107,7 +108,7 @@ open class ViewHolder(var itemView:View):VHService {
      * 圆形-本地图片
      *
      */
-    override  fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
+    override  fun setImgCircle(@IdRes id: Int, @DrawableRes imgRes: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)?): VHService {
         return setImg(id, true, 0f, "", imgRes, onClickListener)
     }
 
@@ -121,7 +122,7 @@ open class ViewHolder(var itemView:View):VHService {
      * @return
      */
     @Synchronized
-    private fun setImg(id: Int, isCir: Boolean, radius: Float, url: CharSequence, @DrawableRes imgRes: Int, onClickListener: ((view: View, VHService: VHService) -> Unit)?): VHService {
+    private fun setImg(id: Int, isCir: Boolean, radius: Float, url: CharSequence, @DrawableRes imgRes: Int, onClickListener: ((view: View, vh: ViewHolder) -> Unit)?): VHService {
 
         val img = getView<ImageView>(id)
         if (TextUtils.isEmpty(url)) {
@@ -138,7 +139,7 @@ open class ViewHolder(var itemView:View):VHService {
             }
         }
         if (onClickListener != null) img?.setOnClickListener (object : OnClickListener2() {
-            override fun onClick2(view: View) {
+            override fun click(view: View) {
                 onClickListener.invoke(view, this@ViewHolder)
             }
         })
@@ -157,17 +158,14 @@ open class ViewHolder(var itemView:View):VHService {
         return this
     }
 
-    override fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes vararg ids: Int): VHService {
-        for (id in ids) setOnClickListener(onClickListener, id)
-        return this
-    }
-
-    override fun setOnClickListener(onClickListener: (view: View, VHService: VHService) -> Unit, @IdRes id: Int): VHService {
-        getView<View>(id)?.setOnClickListener(object : OnClickListener2() {
-            override fun onClick2(view: View) {
-                onClickListener.invoke(view, this@ViewHolder)
-            }
-        })
+    override fun setOnClick(onClickListener: (view: View, vh: ViewHolder) -> Unit, @IdRes vararg ids: Int): VHService {
+        for (id in ids) {
+            getView<View>(id)?.setOnClickListener(object : OnClickListener2() {
+                override fun click(view: View) {
+                    onClickListener.invoke(view, this@ViewHolder)
+                }
+            })
+        }
         return this
     }
 

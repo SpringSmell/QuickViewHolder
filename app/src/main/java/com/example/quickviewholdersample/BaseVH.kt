@@ -8,18 +8,22 @@ import org.quick.viewHolder.VHService
 import org.quick.viewHolder.ViewHolder
 
 class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService {
-    override fun <T : View> getView(id: Int): T? =VH.getView(id)
+    override fun <T : View> getView(id: Int): T? {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun setText(
         id: Int,
         content: CharSequence?,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
-    ): VHService =VH.setText(id,content,onClickListener)
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
+    ): VHService {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
 
     override fun setImg(
         id: Int,
         iconId: Int,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -27,7 +31,7 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
     override fun setImg(
         id: Int,
         url: CharSequence,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -36,7 +40,7 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
         id: Int,
         radius: Float,
         iconId: Int,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -45,7 +49,7 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
         id: Int,
         radius: Float,
         url: CharSequence,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -53,7 +57,7 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
     override fun setImgCircle(
         id: Int,
         url: CharSequence,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -61,7 +65,7 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
     override fun setImgCircle(
         id: Int,
         imgRes: Int,
-        onClickListener: ((view: View, VHService: VHService) -> Unit)?
+        onClickListener: ((view: View, vh: ViewHolder) -> Unit)?
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
@@ -83,16 +87,9 @@ class BaseVH(itemView: View, var VH: ViewHolder= ViewHolder(itemView)):VHService
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun setOnClickListener(
-        onClickListener: (view: View, VHService: VHService) -> Unit,
+    override fun setOnClick(
+        onClickListener: (view: View, vh: ViewHolder) -> Unit,
         vararg ids: Int
-    ): VHService {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun setOnClickListener(
-        onClickListener: (view: View, VHService: VHService) -> Unit,
-        id: Int
     ): VHService {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }

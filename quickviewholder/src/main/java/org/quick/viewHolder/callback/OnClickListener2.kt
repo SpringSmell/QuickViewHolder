@@ -1,4 +1,4 @@
-package org.quick.viewHolder
+package org.quick.viewHolder.callback
 
 import android.view.View
 
@@ -20,10 +20,10 @@ abstract class OnClickListener2 : View.OnClickListener {
         val currentTime = Calendar.getInstance().timeInMillis
         val temp = currentTime - lastTime
         if (temp > 300) {//间隔时间，成功触发
-            onClick2(v)
+            click(v)
             lastTime = currentTime
         }
     }
 
-    abstract fun onClick2(view: View)
+    abstract fun click(view: View)
 }
